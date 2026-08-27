@@ -20,6 +20,8 @@ media
 *.py[cod]
 *$py.class
 
+staticfiles 
+
 # C extensions
 *.so
 

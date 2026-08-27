@@ -1,0 +1,236 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log in | Django Studio</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <style>
+      :root {
+        --ink: #1c2b2d;
+        --paper: #f6f4ee;
+        --card: #ffffff;
+        --line: #dcd7c9;
+        --moss: #3f6b5c;
+        --moss-dark: #2c4c41;
+        --muted: #7c8683;
+        --radius: 12px;
+        font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 400px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 34px 32px 30px 32px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 26px;
+      }
+
+      header h1 {
+        font-size: 22px;
+        font-weight: 600;
+        margin: 0 0 6px 0;
+      }
+
+      header p {
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        color: var(--muted);
+        margin: 0;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .field {
+        margin-bottom: 18px;
+      }
+
+      .field label {
+        display: block;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        margin-bottom: 6px;
+      }
+
+      input {
+        width: 100%;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 15px;
+        padding: 11px 12px;
+        border: 1.5px solid var(--line);
+        border-radius: 7px;
+        background: var(--paper);
+        color: var(--ink);
+        transition:
+          border-color 0.15s ease,
+          box-shadow 0.15s ease,
+          background 0.15s ease;
+      }
+
+      input:hover {
+        border-color: #b9b2a0;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: var(--moss);
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(63, 107, 92, 0.15);
+      }
+
+      .row-between {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: -6px 0 22px 0;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 12.5px;
+      }
+
+      .remember {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--muted);
+      }
+
+      .remember input[type="checkbox"] {
+        width: auto;
+        accent-color: var(--moss);
+      }
+
+      a.forgot {
+        color: var(--moss-dark);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      a.forgot:hover {
+        text-decoration: underline;
+      }
+
+      button.submit {
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 14.5px;
+        letter-spacing: 0.02em;
+        background: var(--moss);
+        color: #fdfbf6;
+        border: none;
+        padding: 12px 0;
+        border-radius: 7px;
+        cursor: pointer;
+        transition: background 0.15s ease;
+      }
+      button.submit:hover {
+        background: var(--moss-dark);
+      }
+
+      .signup {
+        text-align: center;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 12.5px;
+        color: var(--muted);
+        margin-top: 22px;
+      }
+
+      .signup a {
+        color: var(--moss-dark);
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .signup a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body class="site-page">
+    <main class="site-shell">
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="site-brand" href="{% url 'home' %}">Django Studio</a>
+        <div class="site-nav-links">
+          <a class="btn btn-secondary" href="{% url 'about' %}">About</a>
+          <a class="btn btn-secondary" href="{% url 'student_list' %}">Students</a>
+        </div>
+      </nav>
+    <div class="card login-card">
+      <header>
+        <span class="section-kicker">Member access</span>
+        <h1>Welcome back</h1>
+        <p>Log in to manage the student roster</p>
+        {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %}
+      </header>
+
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="field">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            autocomplete="username"
+            placeholder="Enter your username"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="current-password"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+
+        <div class="row-between">
+          <label class="remember">
+            <input type="checkbox" name="remember" id="remember" />
+            Remember me
+          </label>
+          <a class="forgot" href="{% url 'home' %}">Back home</a>
+        </div>
+
+        <button type="submit" class="submit">Log in</button>
+      </form>
+
+      <p class="signup">
+        Don't have an account?
+        <a href="{% url 'custom_create_user' %}">Sign up</a>
+      </p>
+    </div>
+    </main>
+  </body>
+</html>

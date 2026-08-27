@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Django Landing Page</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+</head>
+<body class="home-page">
+    <main class="hero-card">
+        <section class="hero-copy">
+            <p class="hero-kicker">Welcome to your Django site</p>
+            <h1>Build beautiful pages with simple templates.</h1>
+            <p class="hero-text">
+                This landing page now feels more polished with a clean layout, modern colors, and easy navigation.
+            </p>
+
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="{% url 'student_list' %}">Students</a>
+                <a class="btn btn-primary" href="{% url 'about' %}">About</a>
+                <a class="btn btn-secondary" href="{% url 'posts' %}">Posts</a>
+                <a class="btn btn-secondary" href="{% url 'create_user' %}">Create account</a>
+                {% if request.user.is_authenticated %}
+                <a class="btn btn-secondary" href="{% url 'logout' %}">Log out</a>
+                {% else %}
+                <a class="btn btn-secondary" href="{% url 'login' %}">Log in</a>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="hero-visual">
+            <img src="{% static 'images/Scene.jpg' %}" alt="Scenery Image" />
+        </section>
+    </main>
+</body>
+</html>

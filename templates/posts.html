@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Card Template</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="post-page">
+    <div class="page-shell"><h1>Post Card Template ({{posts.count}})</h1>
+        <div class="page-actions">
+            <a class="btn btn-primary" href="{% url 'home' %}">Back to Home</a>
+            <a class="btn btn-secondary" href="{% url 'about' %}">About</a>
+        </div>
+
+        {% for post in posts %}
+        <div class="postcard-list">
+            
+            <article class="postcard">
+                <div class="postcard__message">
+                    <p class="postcard__date">{{ post.date|date:"M d, Y" }}</p>
+                    <h2>{{ post.name }}</h2>
+                    <p>{{ post.body | truncatewords:50 }}</p>
+                </div>
+
+                <div class="postcard__side">
+                    <div class="postcard__stamp">POST</div>
+                    <div class="postcard__address">
+                        <p>To: Guest</p>
+                        <p>From: {{ post.name }}</p>
+                        <p>Status: {% if post.is_published %}Published{% else %}Draft{% endif %}</p>
+                    </div>
+                </div>
+            </article>
+            {% empty %}
+            <div class="empty-state">No posts available yet.</div>
+            <a class="btn btn-primary" href="{% url 'home' %}">Back to Home</a>
+
+        </div>
+    </div>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Create User</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7ff, #e8ecff);
+            color: #1f2937;
+        }
+
+        .form-wrapper {
+            width: 100%;
+            max-width: 420px;
+            padding: 32px 24px;
+            margin: 24px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #dfe7ff;
+            border-radius: 18px;
+            box-shadow: 0 18px 40px rgba(79, 70, 229, 0.12);
+            backdrop-filter: blur(4px);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #374151;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background-color: #fff;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        button {
+            margin-top: 8px;
+            padding: 13px 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 24px rgba(79, 70, 229, 0.28);
+        }
+    </style>
+</head>
+<body>
+    
+    <h1 class="font-bold text-center">User Creation Form</h1>
+     
+
+    <div class="form-wrapper">
+        <form action="{% url 'custom_create_user' %}" method="post">{% csrf_token %}
+{% for message in messages %}
+    {% if message.tags == "success" %}
+        <p class="bg-green-100 text-green-800 p-4 rounded">
+            {{ message }}
+        </p>
+    {% else %}
+        <p class="bg-red-100 text-red-800 p-4 rounded">
+            {{ message }}
+        </p>
+    {% endif %}
+{% endfor %}
+        <h2>{{form_name}}</h2>
+
+            <div class="field">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required placeholder="Enter username">
+            </div>
+
+            <div class="field">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Enter email">
+            </div>
+
+            <div class="field">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required placeholder="Enter password">
+            </div>
+
+            <div class="field">
+                <label for="ConfirmPassword">Confirm Password:</label>
+                <input type="password" id="ConfirmPassword" name="ConfirmPassword" required placeholder="Confirm password">
+            </div>
+
+            <button type="submit">Create User</button>
+        </form>
+    </div>
+</body>
+</html>

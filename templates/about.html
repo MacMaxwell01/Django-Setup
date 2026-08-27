@@ -1,0 +1,39 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>About | Django Studio</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    </head>
+    <body class="site-page">
+        <main class="site-shell">
+            <nav class="site-nav" aria-label="Main navigation">
+                <a class="site-brand" href="{% url 'home' %}">Django Studio</a>
+                <div class="site-nav-links">
+                    <a class="btn btn-secondary" href="{% url 'student_list' %}">Students</a>
+                    <a class="btn btn-secondary" href="{% url 'posts' %}">Posts</a>
+                    <a class="btn btn-primary" href="{% url 'login' %}">Log in</a>
+                </div>
+            </nav>
+            <section class="surface about-layout">
+                <div>
+                    <span class="section-kicker">About the project</span>
+                    <h1>A simple place to learn, build, and share.</h1>
+                    <p class="about-copy">{{ taofeek }}</p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="{% url 'student_list' %}">View students</a>
+                        <a class="btn btn-secondary" href="{% url 'home' %}">Back home</a>
+                    </div>
+                </div>
+                <div class="about-facts">
+                    <div class="fact"><span class="fact-label">Developer</span><strong>{{ programmer_name }}</strong></div>
+                    <div class="fact"><span class="fact-label">Age</span><strong>{{ age }}</strong></div>
+                    <div class="fact"><span class="fact-label">G.O.A.T.</span><strong>{{ GOAT }}</strong></div>
+                    <div class="fact"><span class="fact-label">Favorite players</span><strong>{{ best_players|join:', ' }}</strong></div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

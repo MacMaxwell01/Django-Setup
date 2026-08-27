@@ -1,0 +1,31 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete student | Django Studio</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body class="site-page record-page">
+    <main class="site-shell">
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="site-brand" href="{% url 'home' %}">Django Studio</a>
+        <a class="btn btn-secondary" href="{% url 'student_list' %}">Student roster</a>
+      </nav>
+      <section class="surface danger-card">
+        <div class="danger-icon" aria-hidden="true">!</div>
+        <span class="section-kicker">Permanent action</span>
+        <h1>Delete this student?</h1>
+        <p>You're about to remove <strong>{{ student.firstname }} {{ student.lastname }}</strong> from the roster. This action cannot be undone.</p>
+        <form method="post">
+          {% csrf_token %}
+          <div class="danger-actions">
+            <button class="danger-confirm" type="submit">Yes, delete student</button>
+            <a class="btn btn-secondary" href="{% url 'student_list' %}">Keep student</a>
+          </div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
